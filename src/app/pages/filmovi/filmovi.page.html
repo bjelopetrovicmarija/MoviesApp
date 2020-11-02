@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Pretraga filmova</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)" color="ligth"></ion-searchbar>
+
+  <ion-item color="medium">
+    <ion-label>Izaberi kategoriju:</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+      <ion-select-option value="">Sve</ion-select-option>
+      <ion-select-option value="movie">Film</ion-select-option>
+      <ion-select-option value="series">Serija</ion-select-option>
+      <ion-select-option value="episode">Epizoda</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-item button *ngFor="let item of (results | async)" [routerLink]="['/', 'filmovi', item.imdbID]">
+      <ion-avatar slot="start">
+        <img [src]="item.Poster" *ngIf="item.Poster != 'N/A'">
+      </ion-avatar>
+
+      <ion-label text-wrap>
+        <h3>{{ item.Title }}</h3>
+        {{ item.Year }}
+      </ion-label>
+
+      <ion-icon slot="end" *ngIf="item.Type == 'movie'" name="videocam"></ion-icon>
+      <ion-icon slot="end" *ngIf="item.Type == 'series'" name="tv"></ion-icon>
+      <ion-icon slot="end" name="laptop" *ngIf="item.Type == 'game'"></ion-icon>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

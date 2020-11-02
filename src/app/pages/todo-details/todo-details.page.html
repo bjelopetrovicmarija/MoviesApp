@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detaljnije</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-input required type="text" placeholder="Naziv filma" [(ngModel)]="todo.task"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="number" placeholder="Prioritet" [(ngModel)]="todo.priority"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="saveTodo()" color="dark">Sačuvaj</ion-button>
+</ion-content>

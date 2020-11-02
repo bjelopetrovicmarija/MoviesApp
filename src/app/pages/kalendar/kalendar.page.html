@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>{{ viewTitle }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="today()">Danas</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header tappable (click)="collapseCard = !collapseCard">
+      <ion-card-title>Dodaj dogođaj</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="!collapseCard">
+      <ion-item>
+        <ion-input type="text" placeholder="Naziv" [(ngModel)]="event.title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Opis" [(ngModel)]="event.desc"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Početak</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Kraj</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Ceo dan</ion-label>
+        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+      </ion-item>
+
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''" color="dark">
+        Sačuvaj događaj
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'dark' : 'medium'" (click)="changeMode('month')">Mesec</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'week' ? 'dark' : 'medium'" (click)="changeMode('week')">Nedelja</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'dark' : 'medium'" (click)="changeMode('day')">Dan</ion-button>
+    </ion-col>
+ 
+    <ion-col size="6">
+      <ion-button fill="clear" (click)="back()" color="dark">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+ 
+    <ion-col size="6">
+      <ion-button fill="clear" (click)="next()" color="dark">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    startHour="8"
+    endHour="23"
+    step="30"
+    startingDayWeek="1">
+  </calendar>
+
+</ion-content>

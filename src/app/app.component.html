@@ -1,3 +1,28 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu menuId="main-menu" content-id="main">
+    <ion-header>
+      <br>
+      <ion-title>Menu</ion-title>
+      <br>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-item routerLink="/home" color="light">
+          <ion-icon name="film" slot="start"></ion-icon>
+          <ion-label>Moj spisak</ion-label>
+        </ion-item>
+        <ion-item routerLink="/filmovi" color="light">
+          <ion-icon name="search" slot="start"></ion-icon>
+          <ion-label>Pretraga filmova</ion-label>
+        </ion-item>
+        <ion-item routerLink="/kalendar" color="light">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <ion-label>Kalendar</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
